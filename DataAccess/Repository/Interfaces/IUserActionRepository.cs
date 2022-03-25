@@ -15,7 +15,7 @@ namespace DataAccess.Repository.Interfaces
         List<User> GetAllTask();
 
         void Add(User entity);
-        void Remove(User entity);
+        void Remove(int id );
         void RemoveRange(User entity);
         void Update(User user);
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public class UserAction : Repository<User> , IUserActionRepository
+    public class UserAction : Repository<User>, IUserActionRepository
     {
 
         public UserAction(ApplicationContext context) : base(context)
@@ -22,7 +22,7 @@ namespace DataAccess.Repository
             _context.Add(entity);
         }
 
-        
+
 
         public IEnumerable<User> GetAll()
         {
@@ -34,9 +34,13 @@ namespace DataAccess.Repository
             throw new NotImplementedException();
         }
 
-        public void Remove(User entity)
+        public void Remove(int id)
         {
-            throw new NotImplementedException();
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+            }
         }
 
         public void RemoveRange(User entity)
@@ -46,7 +50,7 @@ namespace DataAccess.Repository
 
         public void Update(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(user);
         }
         private bool disposed = false;
 
@@ -68,7 +72,7 @@ namespace DataAccess.Repository
             GC.SuppressFinalize(this);
         }
 
-        public  List<User> GetAllTask()
+        public List<User> GetAllTask()
         {
             return _context.Users.ToList();
         }

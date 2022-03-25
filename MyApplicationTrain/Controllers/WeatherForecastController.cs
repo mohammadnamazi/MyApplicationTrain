@@ -44,6 +44,20 @@ namespace MyApplicationTrain.Controllers
             return Ok(products);
         }
 
+        [HttpDelete]
+        public void Remove(int id)
+        {
+            _unitOfWork.UserAction.Remove(id);
+            _unitOfWork.Save();
+        }
+
+        [HttpPut]
+        public void Update(User user)
+        {
+            _unitOfWork.UserAction.Update(user);
+            _unitOfWork.Save();
+        }
+
         [HttpPost]
         public void Add(User user)
         {
@@ -52,3 +66,4 @@ namespace MyApplicationTrain.Controllers
         }
     }
 }
+
