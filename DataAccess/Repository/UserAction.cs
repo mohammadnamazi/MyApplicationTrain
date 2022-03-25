@@ -67,5 +67,10 @@ namespace DataAccess.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public  List<User> GetAllTask()
+        {
+            return _context.Users.ToList();
+        }
     }
 }

@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using DataAccess;
 using DataAccess.Repository;
 using DataAccess.Repository.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -40,7 +41,7 @@ builder.Services.AddSwaggerGen();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 // Call ConfigureContainer on the Host sub property 
-
+builder.Services.AddMediatR(typeof(Program).Assembly);
 
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {

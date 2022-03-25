@@ -12,6 +12,8 @@ namespace DataAccess.Repository.Interfaces
     {
         User GetfirstOrDefult(Expression<Func<User, bool>> filter);
         IEnumerable<User> GetAll();
+        List<User> GetAllTask();
+
         void Add(User entity);
         void Remove(User entity);
         void RemoveRange(User entity);
