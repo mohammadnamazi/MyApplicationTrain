@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public class UserAction : Repository<User>, IUserActionRepository
+    public class UserAction : Repository<Person>, IUserActionRepository
     {
 
         public UserAction(ApplicationContext context) : base(context)
@@ -17,40 +17,40 @@ namespace DataAccess.Repository
 
         }
 
-        public void Add(User entity)
+        public void Add(Person entity)
         {
             _context.Add(entity);
         }
 
 
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<Person> GetAll()
         {
-            return _context.Users;
+            return _context.Persons;
         }
 
-        public User GetfirstOrDefult(Expression<Func<User, bool>> filter)
+        public Person GetfirstOrDefult(Expression<Func<Person, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
         public void Remove(int id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var user = _context.Persons.FirstOrDefault(u => u.Id == id);
             if (user != null)
             {
-                _context.Users.Remove(user);
+                _context.Persons.Remove(user);
             }
         }
 
-        public void RemoveRange(User entity)
+        public void RemoveRange(Person entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(User user)
+        public void Update(Person user)
         {
-            _context.Users.Update(user);
+            _context.Persons.Update(user);
         }
         private bool disposed = false;
 
@@ -72,9 +72,9 @@ namespace DataAccess.Repository
             GC.SuppressFinalize(this);
         }
 
-        public List<User> GetAllTask()
+        public List<Person> GetAllTask()
         {
-            return _context.Users.ToList();
+            return _context.Persons.ToList();
         }
     }
 }

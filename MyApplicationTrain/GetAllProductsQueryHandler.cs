@@ -4,7 +4,7 @@ using MediatR;
 
 namespace MyApplicationTrain
 {
-    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, List<User>>
+    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, List<Person>>
     {
         private readonly IUserActionRepository _userRepo;
 
@@ -12,10 +12,10 @@ namespace MyApplicationTrain
         {
             _userRepo = userRepo;
         }
-        public Task<List<User>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public Task<List<Person>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var users = Task.Run( ()  => _userRepo.GetAllTask());
-            return  users;
+            var Persons = Task.Run( ()  => _userRepo.GetAllTask());
+            return Persons;
         }
     }
 }

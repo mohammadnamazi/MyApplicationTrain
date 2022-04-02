@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using DataAccess.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace MyApplicationTrain.Controllers
 {
@@ -25,7 +27,7 @@ namespace MyApplicationTrain.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(User _userData)
+        public async Task<IActionResult> Post(PersonForGetTokenViewModel _userData)
         {
             if (_userData != null && _userData.Email != null && _userData.Password != null)
             {
@@ -39,7 +41,7 @@ namespace MyApplicationTrain.Controllers
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("UserId", user.Id.ToString()),
-                        new Claim("DisplayName", user.LastName),
+                        new Claim("DisplayName", user.UserName),
                         new Claim("UserName", user.UserName),
                         new Claim("Email", user.Email)
                     };
@@ -53,7 +55,14 @@ namespace MyApplicationTrain.Controllers
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    var tokenViewModel = new TokenViewModel
+                    {
+                        Token = new JwtSecurityTokenHandler().WriteToken(token)
+                    };
+
+                    string tokenJson = JsonSerializer.Serialize(tokenViewModel);
+
+                    return Ok(tokenJson);
                 }
                 else
                 {
@@ -62,13 +71,13 @@ namespace MyApplicationTrain.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Invalid credentials");
             }
         }
 
-        private async Task<User> GetUser(string email, string password)
+        private async Task<Person> GetUser(string email, string password)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            return await _context.Persons.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
         }
     }
 }

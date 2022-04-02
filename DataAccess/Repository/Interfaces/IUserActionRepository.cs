@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository.Interfaces
 {
-    public interface IUserActionRepository : IRepository<User>
+    public interface IUserActionRepository : IRepository<Person>
     {
-        User GetfirstOrDefult(Expression<Func<User, bool>> filter);
-        IEnumerable<User> GetAll();
-        List<User> GetAllTask();
+        Person GetfirstOrDefult(Expression<Func<Person, bool>> filter);
+        IEnumerable<Person> GetAll();
+        List<Person> GetAllTask();
 
-        void Add(User entity);
+        void Add(Person entity);
         void Remove(int id );
-        void RemoveRange(User entity);
-        void Update(User user);
+        void RemoveRange(Person entity);
+        void Update(Person user);
     }
 }

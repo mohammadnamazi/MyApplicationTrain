@@ -29,7 +29,7 @@ namespace MyApplicationTrain.Controllers
         };
 
         [HttpGet,ActionName("get")]
-        public IEnumerable<User> Get()
+        public IEnumerable<Person> Get()
         {
             var courses = _unitOfWork.UserAction.GetAll();
 
@@ -52,14 +52,14 @@ namespace MyApplicationTrain.Controllers
         }
 
         [HttpPut]
-        public void Update(User user)
+        public void Update(Person user)
         {
             _unitOfWork.UserAction.Update(user);
             _unitOfWork.Save();
         }
 
         [HttpPost]
-        public void Add(User user)
+        public void Add(Person user)
         {
             _unitOfWork.UserAction.Add(user);
             _unitOfWork.Save();

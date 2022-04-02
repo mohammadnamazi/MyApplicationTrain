@@ -3,7 +3,7 @@ using MediatR;
 
 namespace MyApplicationTrain
 {
-    public class GetAllProductsQuery : IRequest<List<User>>
+    public class GetAllProductsQuery : IRequest<List<Person>>
     {
     }
 }
