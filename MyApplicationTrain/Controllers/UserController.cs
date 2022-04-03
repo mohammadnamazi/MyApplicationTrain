@@ -1,7 +1,9 @@
+using AutoMapper;
 using DataAccess;
 using DataAccess.Models;
 using DataAccess.Repository;
 using DataAccess.Repository.Interfaces;
+using DataAccess.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +19,12 @@ namespace MyApplicationTrain.Controllers
         private readonly ISender _mediator;
 
         private readonly IUnitOfWork _unitOfWork;
-        public UserController(IUnitOfWork unitOfWork, ISender mediator)
+        public readonly IMapper _mapper;
+        public UserController(IUnitOfWork unitOfWork, ISender mediator , IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         private static readonly string[] Summaries = new[]
@@ -29,11 +33,13 @@ namespace MyApplicationTrain.Controllers
         };
 
         [HttpGet,ActionName("get")]
-        public IEnumerable<Person> Get()
+        public IEnumerable<PersonViewModel> Get()
         {
-            var courses = _unitOfWork.UserAction.GetAll();
+            IEnumerable<Person> courses = _unitOfWork.UserAction.GetAll();
 
-            return courses;
+            IEnumerable<PersonViewModel> personViewModel = _mapper.Map<IEnumerable<PersonViewModel>>(courses);
+
+            return personViewModel; 
         }
 
 

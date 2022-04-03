@@ -18,6 +18,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
     // Declare your services with proper lifetime
