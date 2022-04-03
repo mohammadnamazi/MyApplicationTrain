@@ -11,13 +11,13 @@ namespace MyApplicationTrain.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
-    public class WeatherForecastController : ControllerBase
+    public class UserController : ControllerBase
     {
 
         private readonly ISender _mediator;
 
         private readonly IUnitOfWork _unitOfWork;
-        public WeatherForecastController(IUnitOfWork unitOfWork, ISender mediator)
+        public UserController(IUnitOfWork unitOfWork, ISender mediator)
         {
             _unitOfWork = unitOfWork;
             _mediator = mediator;
