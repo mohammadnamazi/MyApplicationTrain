@@ -33,13 +33,9 @@ namespace MyApplicationTrain.Controllers
         };
 
         [HttpGet,ActionName("get")]
-        public IEnumerable<PersonViewModel> Get()
+        public IEnumerable<Person> Get()
         {
-            IEnumerable<Person> courses = _unitOfWork.UserAction.GetAll();
-
-            IEnumerable<PersonViewModel> personViewModel = _mapper.Map<IEnumerable<PersonViewModel>>(courses);
-
-            return personViewModel; 
+            return _unitOfWork.UserAction.GetAll();
         }
 
 
@@ -60,15 +56,18 @@ namespace MyApplicationTrain.Controllers
         [HttpPut]
         public void Update(Person user)
         {
+
             _unitOfWork.UserAction.Update(user);
             _unitOfWork.Save();
         }
 
         [HttpPost]
-        public void Add(Person user)
+        public void Add(PersonViewModel user)
         {
-            _unitOfWork.UserAction.Add(user);
+            Person person = _mapper.Map<Person>(user);
+            _unitOfWork.UserAction.Add(person);
             _unitOfWork.Save();
+           
         }
     }
 }
