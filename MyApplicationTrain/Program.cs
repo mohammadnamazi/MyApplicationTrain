@@ -24,7 +24,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
     // Declare your services with proper lifetime
     builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
-    builder.RegisterType<UserAction>().As<IUserActionRepository>().InstancePerLifetimeScope();
+    builder.RegisterType<PersonAction>().As<IUserActionRepository>().InstancePerLifetimeScope();
 
 });
 

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public class UserAction : Repository<Person>, IUserActionRepository
+    public class PersonAction : Repository<Person>, IUserActionRepository
     {
 
-        public UserAction(ApplicationContext context) : base(context)
+        public PersonAction(ApplicationContext context) : base(context)
         {
 
         }
@@ -50,7 +50,9 @@ namespace DataAccess.Repository
 
         public void Update(Person user)
         {
-            _context.Persons.Update(user);
+
+                _context.Persons.Update(user);
+            
         }
         private bool disposed = false;
 

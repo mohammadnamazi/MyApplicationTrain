@@ -13,14 +13,14 @@ namespace MyApplicationTrain.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
-    public class UserController : ControllerBase
+    public class PersonController : ControllerBase
     {
 
         private readonly ISender _mediator;
 
         private readonly IUnitOfWork _unitOfWork;
         public readonly IMapper _mapper;
-        public UserController(IUnitOfWork unitOfWork, ISender mediator , IMapper mapper)
+        public PersonController(IUnitOfWork unitOfWork, ISender mediator , IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mediator = mediator;
@@ -47,17 +47,17 @@ namespace MyApplicationTrain.Controllers
         }
 
         [HttpDelete]
-        public void Remove(int id)
+        public void Delete(int id)
         {
             _unitOfWork.UserAction.Remove(id);
             _unitOfWork.Save();
         }
 
         [HttpPut]
-        public void Update(Person user)
+        public void Update(PersonViewModel user)
         {
-
-            _unitOfWork.UserAction.Update(user);
+            Person person = _mapper.Map<Person>(user);
+            _unitOfWork.UserAction.Update(person);
             _unitOfWork.Save();
         }
 
